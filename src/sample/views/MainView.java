@@ -5,8 +5,10 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import sample.controllers.MainController;
 
 public class MainView {
+    private MainController controller = MainController.getInstance();
     private Stage primaryStage;
     private MenuView menuView;
     private ToolsView toolsView;

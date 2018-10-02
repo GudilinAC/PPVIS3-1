@@ -8,7 +8,7 @@ import javafx.scene.control.MenuItem;
 public class MenuView {
     private MenuBar menuBar;
 
-    public MenuView(){
+    MenuView(){
         menuBar = new MenuBar();
         Menu fileMenu = new Menu("File");
         MenuItem openFileItem = new MenuItem("Open");
