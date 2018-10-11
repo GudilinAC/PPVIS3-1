@@ -10,7 +10,13 @@ public class ToolsView {
     private ToolsController controller = ToolsController.getInstance();
     private ToolBar toolBar;
 
-    ToolsView(){
+    private static ToolsView ourInstance = new ToolsView();
+
+    public static ToolsView getInstance() {
+        return ourInstance;
+    }
+
+    private ToolsView() {
         Button wallButton = new Button("Wall");
         wallButton.setOnAction(event -> controller.setTool(Tools.Wall));
         toolBar = new ToolBar(wallButton);

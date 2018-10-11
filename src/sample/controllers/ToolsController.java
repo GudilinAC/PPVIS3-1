@@ -5,7 +5,6 @@ import sample.models.Tools;
 
 public class ToolsController {
     private Context context = Context.getInstance();
-    private Tools tool;
 
     private static ToolsController ourInstance = new ToolsController();
 
@@ -17,11 +16,7 @@ public class ToolsController {
     }
 
     public void setTool(Tools tool){
-        this.tool = tool;
-    }
-
-    public Tools getTool() {
-        return tool;
+        FloorController.getInstance().setTool(tool);
     }
 }
 

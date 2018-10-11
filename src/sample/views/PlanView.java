@@ -3,23 +3,29 @@ package sample.views;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import sample.controllers.PlanController;
-
-import java.util.ArrayList;
-import java.util.List;
+import sample.models.Plan;
 
 public class PlanView {
-    private PlanController planController = PlanController.getInstance();
+    private PlanController controller = PlanController.getInstance();
     private ScrollPane scrollPane;
 
-    PlanView() {
-        List<FloorView> floors = new ArrayList<>();
-        planController.getPlan().getFloors().forEach(floor -> floors.add(new FloorView(floor)));
-        scrollPane = new ScrollPane(floors.get(0).getLayout());
+    private static PlanView ourInstance = new PlanView();
+
+    public static PlanView getInstance() {
+        return ourInstance;
+    }
+
+    private PlanView() {
+        FloorView.setInstance(controller.getPlan().getFloors().get(0));
+        scrollPane = new ScrollPane(FloorView.getInstance().getLayout());
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
     }
 
     public Node getLayout(){
         return scrollPane;
+    }
+
+    public void update(Plan plan){
     }
 }

@@ -4,10 +4,15 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 
 public class StatsView {
-    private ScrollPane scrollPane;
+    private ScrollPane scrollPane = new ScrollPane();
 
-    StatsView(){
-        scrollPane = new ScrollPane();
+    private static StatsView ourInstance = new StatsView();
+
+    public static StatsView getInstance() {
+        return ourInstance;
+    }
+
+    private StatsView() {
     }
 
     public Node getLayout(){

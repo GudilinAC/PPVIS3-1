@@ -3,12 +3,11 @@ package sample.controllers;
 import sample.data.Context;
 import sample.models.Dot;
 import sample.models.Tools;
+import sample.views.FloorView;
 
 public class FloorController {
     private Context context = Context.getInstance();
-    private ToolsController toolsController = ToolsController.getInstance();
-    private StructureController structureController = StructureController.getInstance();
-    private Tools previousUsedTool;
+    private Tools tool;
     private Dot previousDot;
 
     private static FloorController ourInstance = new FloorController();
@@ -21,18 +20,23 @@ public class FloorController {
     }
 
     public void mousePress(Dot dot){
-        Tools tool = toolsController.getTool();
-        if (previousUsedTool == null){
+        if (previousDot == null){
             previousDot = dot;
-            previousUsedTool = tool;
         }
         else {
-            if (previousUsedTool != tool) toolsController.setTool(null);
-            else {
-                context.getPlan().getFloors().get(0).getStructures().add(structureController.createStructure(tool));
+                context.getPlan().getFloors().get(/**/0/**/).getStructures().add(StructureController.getInstance().createStructure(tool, previousDot, dot));
                 previousDot = null;
-                previousUsedTool = null;
-            }
+                tool = null;
+                MainController.getInstance().update();
         }
+    }
+
+    public void update(int floorNumber) {
+        FloorView.setInstance(context.getPlan().getFloors().get(floorNumber));
+        FloorView.getInstance().redraw();
+    }
+
+    public void setTool(Tools tool) {
+        this.tool = tool;
     }
 }

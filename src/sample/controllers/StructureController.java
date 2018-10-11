@@ -1,8 +1,10 @@
 package sample.controllers;
 
 import sample.data.Context;
+import sample.models.Dot;
 import sample.models.Structure;
 import sample.models.Tools;
+import sample.models.Wall;
 
 public class StructureController {
     private Context context = Context.getInstance();
@@ -16,13 +18,13 @@ public class StructureController {
     private StructureController() {
     }
 
-    public Structure createStructure(Tools tool/*,var...vars*/ ){
-        switch (tool){
-            case Wall:{
-
-            }
+    public Structure createStructure(Tools tool,Dot...vars) {
+        Structure newStructure = null;
+        switch (tool) {
+            case Wall:
+                newStructure = new Wall(vars[0], vars[1]);
         }
 
-        return null;
+        return newStructure;
     }
 }

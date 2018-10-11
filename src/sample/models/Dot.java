@@ -12,19 +12,19 @@ public class Dot {
         this.yCoordinate = yCoordinate;
     }
 
-    public double getXCoordinate() {
+    public double getX() {
         return xCoordinate;
     }
 
-    public void setXCoordinate(double xCoordinate) {
+    public void setX(double xCoordinate) {
         this.xCoordinate = xCoordinate;
     }
 
-    public double getYCoordinate() {
+    public double getY() {
         return yCoordinate;
     }
 
-    public void setYCoordinate(double yCoordinate) {
+    public void setY(double yCoordinate) {
         this.yCoordinate = yCoordinate;
     }
 
