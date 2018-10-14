@@ -1,6 +1,6 @@
 package sample.models;
 
-public class Dot {
+public class Dot{
     private double xCoordinate;
     private double yCoordinate;
 

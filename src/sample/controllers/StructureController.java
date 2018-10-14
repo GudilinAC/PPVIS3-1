@@ -22,7 +22,8 @@ public class StructureController {
         Structure newStructure = null;
         switch (tool) {
             case Wall:
-                newStructure = new Wall(vars[0], vars[1]);
+                newStructure = new Wall(vars);
+                break;
         }
 
         return newStructure;

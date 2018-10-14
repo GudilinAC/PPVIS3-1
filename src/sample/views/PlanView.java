@@ -16,7 +16,7 @@ public class PlanView {
     }
 
     private PlanView() {
-        FloorView.setInstance(controller.getPlan().getFloors().get(0));
+        FloorView.getInstance().redraw();
         scrollPane = new ScrollPane(FloorView.getInstance().getLayout());
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);

@@ -1,20 +1,30 @@
 package sample.models;
 
-import javafx.scene.Node;
-import javafx.scene.shape.Line;
+import sample.views.WallView;
 
-public class Wall implements Structure{
-    private Dot beginDot;
-    private Dot endDot;
+public class Wall implements Structure {
+    private Dot beginDot = new Dot();
+    private Dot endDot = new Dot();
 
-    public Node getLayout(){
-        Line line = new Line(beginDot.getX(), beginDot.getY(), endDot.getX(), endDot.getY());
-        return line;
+    public WallView getView() {
+        return new WallView(beginDot, endDot);
     }
 
-    public Wall(Dot beginDot, Dot endDot){
+    public Wall(Dot beginDot, Dot endDot) {
         this.beginDot = beginDot;
         this.endDot = endDot;
+    }
+
+    public Wall(Dot... vars) {
+        switch (vars.length) {
+            case 2:
+                beginDot = vars[0];
+                endDot = vars[1];
+                break;
+            case 1:
+                beginDot = vars[0];
+                endDot = vars[0];
+        }
     }
 
     public Dot getEndDot() {

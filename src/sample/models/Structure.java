@@ -1,7 +1,7 @@
 package sample.models;
 
-import javafx.scene.Node;
+import sample.views.StructureView;
 
 public interface Structure {
-    Node getLayout();
+    StructureView getView();
 }

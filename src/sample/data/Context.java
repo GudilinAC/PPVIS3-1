@@ -1,6 +1,9 @@
 package sample.data;
 
+import sample.models.Floor;
 import sample.models.Plan;
+
+import java.util.List;
 
 public class Context {
     private Plan plan = new Plan();
@@ -20,4 +23,6 @@ public class Context {
     public void setPlan(Plan plan){
         this.plan = plan;
     }
+
+    public List<Floor> getFloors () { return plan.getFloors(); }
 }
