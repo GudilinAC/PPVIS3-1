@@ -13,6 +13,7 @@ public class FloorController {
     private Context context = Context.getInstance();
     private int indexFloor = 0;
     private Tools tool = null;
+    private boolean binding = false;
     private Dot previousDot;
 
     private static FloorController ourInstance = new FloorController();
@@ -29,6 +30,7 @@ public class FloorController {
             previousDot = dot;
         } else {
             context.getFloors().get(indexFloor).getStructures().add(StructureController.getInstance().createStructure(tool, previousDot, dot));
+            context.saveChanges();
             cancelTool();
             MainController.getInstance().update();
         }
@@ -40,6 +42,16 @@ public class FloorController {
             case Wall:
                 pressToWall(dot);
                 break;
+        }
+        context.saveChanges();
+    }
+
+    public void mousePress(StructureView view) {
+        if (tool != null && view.getClass().getSimpleName().equals(tool.name()+"View")){
+            context.getFloors().get(indexFloor).getStructures().add(StructureController.getInstance().createStructure(view));
+            context.saveChanges();
+            cancelTool();
+            MainController.getInstance().update();
         }
     }
 
@@ -64,7 +76,21 @@ public class FloorController {
 
     public List<StructureView> getStructureViewsList() {
         List<StructureView> list = new ArrayList<>();
-        context.getFloors().get(indexFloor).getStructures().forEach(structure -> list.add(structure.getView()));
+        context.getFloors().get(indexFloor).getStructures().forEach(structure ->
+                list.add(StructureController.getInstance().createView(structure)));
         return list;
+    }
+
+    public void setBinding(boolean binding) {
+        this.binding = binding;
+        //TODO binding logic
+    }
+
+    public boolean getBinding() {
+        return binding;
+    }
+
+    public int getCurrentFloor() {
+        return indexFloor;
     }
 }

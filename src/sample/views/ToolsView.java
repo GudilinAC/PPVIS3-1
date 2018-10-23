@@ -2,6 +2,8 @@ package sample.views;
 
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Separator;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToolBar;
 import sample.controllers.ToolsController;
 import sample.models.Tools;
@@ -19,10 +21,17 @@ public class ToolsView {
     private ToolsView() {
         Button wallButton = new Button("Wall");
         wallButton.setOnAction(event -> controller.setTool(Tools.Wall));
-        toolBar = new ToolBar(wallButton);
+
+        ToggleButton bindButton = new ToggleButton("Binding");
+        bindButton.setOnAction(event -> controller.setBinding(bindButton.isSelected()));
+
+        toolBar = new ToolBar(
+                wallButton,
+                new Separator(),
+                bindButton);
     }
 
-    public Node getLayout(){
+    public Node getLayout() {
         return toolBar;
     }
 }

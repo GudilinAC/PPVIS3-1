@@ -18,6 +18,10 @@ public class ToolsController {
     public void setTool(Tools tool){
         FloorController.getInstance().setTool(tool);
     }
+
+    public void setBinding(boolean binding) {
+        FloorController.getInstance().setBinding(binding);
+    }
 }
 
 

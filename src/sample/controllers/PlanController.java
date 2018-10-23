@@ -21,8 +21,4 @@ public class PlanController {
         PlanView.getInstance().update(context.getPlan());
         FloorController.getInstance().update(floorNumber);
     }
-
-    public Plan getPlan(){
-        return context.getPlan();
-    }
 }

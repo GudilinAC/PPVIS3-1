@@ -1,13 +1,12 @@
 package sample.models;
 
-import sample.views.WallView;
-
 public class Wall implements Structure {
     private Dot beginDot = new Dot();
     private Dot endDot = new Dot();
 
-    public WallView getView() {
-        return new WallView(beginDot, endDot);
+    @Override
+    public Dot[] getDotMassive() {
+        return new Dot[]{beginDot, endDot};
     }
 
     public Wall(Dot beginDot, Dot endDot) {
