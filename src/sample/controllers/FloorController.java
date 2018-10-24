@@ -14,7 +14,8 @@ public class FloorController {
     private int indexFloor = 0;
     private Tools tool = null;
     private boolean binding = false;
-    private Dot previousDot;
+    private boolean isBindingWorking = false;
+    private StructureView followingStructure;
 
     private static FloorController ourInstance = new FloorController();
 
@@ -25,40 +26,29 @@ public class FloorController {
     private FloorController() {
     }
 
-    private void pressToWall(Dot dot){
-        if (previousDot == null) {
-            previousDot = dot;
-        } else {
-            context.getFloors().get(indexFloor).getStructures().add(StructureController.getInstance().createStructure(tool, previousDot, dot));
-            context.saveChanges();
-            cancelTool();
-            MainController.getInstance().update();
-        }
-    }
-
     public void mousePress(Dot dot) {
-        if (tool == null) return;
-        switch (tool) {
-            case Wall:
-                pressToWall(dot);
-                break;
+        if (tool == null || followingStructure == null) return;
+        Dot anotherDot = findDot(dot);
+        if (anotherDot == null) { anotherDot = dot; }
+        if (followingStructure.setAnchor(anotherDot)) {
+            context.getFloors().get(indexFloor).getStructures().add(StructureController.getInstance().createStructure(followingStructure));
+            cancelTool(true);
         }
         context.saveChanges();
     }
 
-    public void mousePress(StructureView view) {
-        if (tool != null && view.getClass().getSimpleName().equals(tool.name()+"View")){
-            context.getFloors().get(indexFloor).getStructures().add(StructureController.getInstance().createStructure(view));
-            context.saveChanges();
-            cancelTool();
-            MainController.getInstance().update();
+    public Dot findDot(Dot dot) {
+        Dot resultDot = null;
+        if(isBindingWorking) {
+            resultDot = StructureController.getInstance().getBindingDot(dot);
         }
+        return resultDot;
     }
 
-    public void cancelTool(){
+    public void cancelTool(boolean success) {
         tool = null;
-        previousDot = null;
-        FloorView.getInstance().cancelTool();
+        followingStructure = null;
+        FloorView.getInstance().cancelTool(success);
     }
 
     public void update(int floorNumber) {
@@ -67,7 +57,20 @@ public class FloorController {
     }
 
     public void setTool(Tools tool) {
+        if (this.tool != null) {
+            cancelTool(false);
+        }
         this.tool = tool;
+        switch (tool) {
+            case Wall:
+                isBindingWorking = true;
+                break;
+            case Camera:
+                isBindingWorking = false;
+                break;
+        }
+        followingStructure = StructureController.getInstance().createStructureView(tool);
+        FloorView.getInstance().setFollowingStructure(followingStructure);
     }
 
     public Tools getTool() {

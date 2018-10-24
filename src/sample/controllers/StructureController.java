@@ -1,10 +1,10 @@
 package sample.controllers;
 
+import sample.data.Constants;
 import sample.data.Context;
 import sample.models.Dot;
 import sample.models.Structure;
 import sample.models.Tools;
-import sample.models.Wall;
 import sample.views.StructureView;
 
 public class StructureController {
@@ -19,12 +19,14 @@ public class StructureController {
     private StructureController() {
     }
 
-    public Structure createStructure(Tools tool,Dot...vars) {
+    public Structure createStructure(Tools tool, Dot... vars) {
         Structure newStructure = null;
-        switch (tool) {
-            case Wall:
-                newStructure = new Wall(vars);
-                break;
+        Class<?> struct = null;
+        try {
+            struct = Class.forName("sample.models." + tool.name());
+            newStructure = (Structure) struct.getConstructor(Dot[].class).newInstance((Object) vars);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return newStructure;
     }
@@ -32,7 +34,7 @@ public class StructureController {
     public Structure createStructure(StructureView view) {
         Structure structure = null;
         try {
-            Class<?> struct = Class.forName("sample.models." + view.getClass().getSimpleName().replaceFirst("View",""));
+            Class<?> struct = Class.forName("sample.models." + view.getClass().getSimpleName().replaceFirst("View", ""));
             structure = (Structure) struct.getConstructor(Dot[].class).newInstance((Object) view.getDotMassive());
         } catch (Exception e) {
             e.printStackTrace();
@@ -40,7 +42,18 @@ public class StructureController {
         return structure;
     }
 
-    public StructureView createView(Structure structure){
+    public StructureView createStructureView(Tools tool) {
+        StructureView view = null;
+        try {
+            Class<?> struct = Class.forName("sample.views." + tool.name() + "View");
+            view = (StructureView) struct.getConstructor(Dot[].class).newInstance((Object) new Dot[]{});
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return view;
+    }
+
+    public StructureView createView(Structure structure) {
         StructureView view = null;
         try {
             Class<?> struct = Class.forName("sample.views." + structure.getClass().getSimpleName() + "View");
@@ -51,14 +64,14 @@ public class StructureController {
         return view;
     }
 
-    public StructureView createView(Tools tool,Dot...vars) {
+    public StructureView createView(Tools tool, Dot... vars) {
         return createView(createStructure(tool, vars));
     }
 
     public Dot getBindingDot(Dot dot) {
-        if(FloorController.getInstance().getBinding()){
+        if (FloorController.getInstance().getBinding()) {
             Dot nearestDot = dot.nearest(context.getBindingDots(FloorController.getInstance().getCurrentFloor()));
-            if (nearestDot != null && dot.distance(nearestDot) < 20){
+            if (nearestDot != null && dot.distance(nearestDot) < Constants.BINDING_DISTANCE) {
                 return nearestDot;
             }
         }

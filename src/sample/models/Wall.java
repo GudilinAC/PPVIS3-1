@@ -9,11 +9,6 @@ public class Wall implements Structure {
         return new Dot[]{beginDot, endDot};
     }
 
-    public Wall(Dot beginDot, Dot endDot) {
-        this.beginDot = beginDot;
-        this.endDot = endDot;
-    }
-
     public Wall(Dot... vars) {
         switch (vars.length) {
             case 2:

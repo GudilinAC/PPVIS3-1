@@ -21,6 +21,7 @@ public class Context {
     }
 
     private Context() {
+        bindingDots.add(new HashSet<>());
     }
 
     public void saveChanges(){

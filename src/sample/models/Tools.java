@@ -1,5 +1,6 @@
 package sample.models;
 
 public enum Tools {
-   Wall;
+   Wall,
+   Camera;
 }

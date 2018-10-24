@@ -18,8 +18,8 @@ public class PlanView {
     private PlanView() {
         FloorView.getInstance().redraw();
         scrollPane = new ScrollPane(FloorView.getInstance().getLayout());
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     }
 
     public Node getLayout(){

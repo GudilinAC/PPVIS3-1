@@ -3,11 +3,13 @@ package sample.views;
 import javafx.scene.Node;
 import javafx.scene.shape.Line;
 import sample.controllers.StructureController;
+import sample.data.Constants;
 import sample.models.Dot;
 
 public class WallView implements StructureView {
     private StructureController controller = StructureController.getInstance();
     private Line line = new Line();
+    private boolean anchorSetted = false;
 
     public WallView(Dot begin, Dot end) {
         setBegin(begin);
@@ -16,17 +18,39 @@ public class WallView implements StructureView {
     }
 
     public WallView(Dot[] dots) {
-        if (dots.length > 1) {
-            setBegin(dots[0]);
-        }
-        if (dots.length > 0) {
-            setEnd(dots[1]);
+        switch (dots.length) {
+            case 1:
+                setBegin(dots[0]);
+                setEnd(dots[0]);
+                break;
+            case 2:
+                setBegin(dots[0]);
+                setEnd(dots[1]);
+                break;
+            default:
+                setBegin(Constants.OUT_DOT);
+                setEnd(Constants.OUT_DOT);
         }
         line.setStrokeWidth(3);
     }
 
     public void followMouse(Dot dot) {
-        this.setEnd(dot);
+        if (anchorSetted) {
+            this.setEnd(dot);
+        }
+    }
+
+    @Override
+    public boolean setAnchor(Dot dot) {
+        if (anchorSetted) {
+            setEnd(dot);
+            return true;
+        } else {
+            setBegin(dot);
+            setEnd(dot);
+            anchorSetted = true;
+            return false;
+        }
     }
 
     @Override

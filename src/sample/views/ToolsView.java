@@ -22,11 +22,15 @@ public class ToolsView {
         Button wallButton = new Button("Wall");
         wallButton.setOnAction(event -> controller.setTool(Tools.Wall));
 
+        Button cameraButton = new Button("Camera");
+        cameraButton.setOnAction(event -> controller.setTool(Tools.Camera));
+
         ToggleButton bindButton = new ToggleButton("Binding");
         bindButton.setOnAction(event -> controller.setBinding(bindButton.isSelected()));
 
         toolBar = new ToolBar(
                 wallButton,
+                cameraButton,
                 new Separator(),
                 bindButton);
     }
