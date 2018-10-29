@@ -54,4 +54,10 @@ public class Context {
     public List<Floor> getFloors () { return plan.getFloors(); }
 
     public Floor getFloor(int floor) { return plan.getFloors().get(floor); }
+
+    public ArrayList<String> getFloorNames(){
+        ArrayList<String> list = new ArrayList<>();
+        plan.getFloors().forEach(f -> list.add(f.getName()));
+        return list;
+    }
 }

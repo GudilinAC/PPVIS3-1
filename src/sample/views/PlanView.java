@@ -3,7 +3,6 @@ package sample.views;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import sample.controllers.PlanController;
-import sample.models.Plan;
 
 public class PlanView {
     private PlanController controller = PlanController.getInstance();
@@ -24,8 +23,5 @@ public class PlanView {
 
     public Node getLayout(){
         return scrollPane;
-    }
-
-    public void update(Plan plan){
     }
 }

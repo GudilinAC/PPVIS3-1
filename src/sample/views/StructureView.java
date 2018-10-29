@@ -8,4 +8,5 @@ public interface StructureView {
     boolean setAnchor(Dot dot);
     Dot[] getDotMassive();
     Node getLayout();
+    void demo();
 }

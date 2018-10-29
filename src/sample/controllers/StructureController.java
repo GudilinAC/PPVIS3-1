@@ -77,4 +77,16 @@ public class StructureController {
         }
         return null;
     }
+
+    public StructureView getDemoView(Class<? extends StructureView> classy) {
+        StructureView view = null;
+        try {
+            view = classy.getConstructor(Dot[].class).newInstance((Object) new Dot[]{});
+            view.demo();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return view;
+    }
 }

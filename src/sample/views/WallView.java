@@ -71,4 +71,10 @@ public class WallView implements StructureView {
     public Node getLayout() {
         return line;
     }
+
+    @Override
+    public void demo() {
+        setBegin(new Dot(0,25));
+        setEnd(new Dot(30,0));
+    }
 }

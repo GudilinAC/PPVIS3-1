@@ -25,7 +25,7 @@ public class CameraView implements StructureView {
 
     public CameraView(Dot[] dots) {
         setImage();
-        if (dots.length > 1) {
+        if (dots.length > 0) {
             setPosition(dots[0]);
         } else { setPosition(Constants.OUT_DOT); }
     }
@@ -52,5 +52,10 @@ public class CameraView implements StructureView {
 
     public Node getLayout() {
         return imageView;
+    }
+
+    @Override
+    public void demo() {
+
     }
 }

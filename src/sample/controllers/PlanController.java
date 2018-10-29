@@ -1,12 +1,9 @@
 package sample.controllers;
 
 import sample.data.Context;
-import sample.models.Plan;
-import sample.views.PlanView;
 
 public class PlanController {
     private Context context = Context.getInstance();
-    private int floorNumber = 0;
 
     private static PlanController ourInstance = new PlanController();
 
@@ -17,8 +14,9 @@ public class PlanController {
     private PlanController() {
     }
 
-    public void update(){
-        PlanView.getInstance().update(context.getPlan());
-        FloorController.getInstance().update(floorNumber);
+    public void update(Integer floor){
+        if (floor == null) { floor = FloorController.getInstance().getCurrentFloor(); }
+        FloorController.getInstance().setFloor(floor);
+        StatsController.getInstance().setFloor(floor);
     }
 }

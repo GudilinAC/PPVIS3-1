@@ -9,8 +9,4 @@ public class MainController {
 
     private MainController() {
     }
-
-    public void update(){
-        PlanController.getInstance().update();
-    }
 }

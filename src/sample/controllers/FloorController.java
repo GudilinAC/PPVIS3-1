@@ -32,9 +32,10 @@ public class FloorController {
         if (anotherDot == null) { anotherDot = dot; }
         if (followingStructure.setAnchor(anotherDot)) {
             context.getFloors().get(indexFloor).getStructures().add(StructureController.getInstance().createStructure(followingStructure));
+            context.saveChanges();
+            StatsController.getInstance().updateStats();
             cancelTool(true);
         }
-        context.saveChanges();
     }
 
     public Dot findDot(Dot dot) {
@@ -51,8 +52,8 @@ public class FloorController {
         FloorView.getInstance().cancelTool(success);
     }
 
-    public void update(int floorNumber) {
-        //TODO floorNumber
+    public void setFloor(int floorNumber) {
+        indexFloor = floorNumber;
         FloorView.getInstance().redraw();
     }
 
@@ -95,5 +96,13 @@ public class FloorController {
 
     public int getCurrentFloor() {
         return indexFloor;
+    }
+
+    public void removeFloor(int floorNumber) {
+        context.getFloors().remove(floorNumber);
+        context.saveChanges();
+        if (indexFloor == floorNumber) {indexFloor = 0;}
+        else if (indexFloor > floorNumber) {indexFloor--;}
+        PlanController.getInstance().update(null);
     }
 }
