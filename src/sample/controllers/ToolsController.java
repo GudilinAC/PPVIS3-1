@@ -1,10 +1,10 @@
 package sample.controllers;
 
-import sample.data.Context;
+import sample.data.Data;
 import sample.models.Tools;
 
 public class ToolsController {
-    private Context context = Context.getInstance();
+    private Data context = Data.getInstance();
 
     private static ToolsController ourInstance = new ToolsController();
 

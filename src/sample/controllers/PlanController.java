@@ -1,9 +1,9 @@
 package sample.controllers;
 
-import sample.data.Context;
+import sample.data.Data;
 
 public class PlanController {
-    private Context context = Context.getInstance();
+    private Data context = Data.getInstance();
 
     private static PlanController ourInstance = new PlanController();
 

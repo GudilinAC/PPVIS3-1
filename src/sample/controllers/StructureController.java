@@ -1,14 +1,15 @@
 package sample.controllers;
 
 import sample.data.Constants;
-import sample.data.Context;
+import sample.data.Data;
 import sample.models.Dot;
 import sample.models.Structure;
 import sample.models.Tools;
 import sample.views.StructureView;
 
+//pattern observer
 public class StructureController {
-    private Context context = Context.getInstance();
+    private Data context = Data.getInstance();
 
     private static StructureController ourInstance = new StructureController();
 
@@ -57,7 +58,7 @@ public class StructureController {
         StructureView view = null;
         try {
             Class<?> struct = Class.forName("sample.views." + structure.getClass().getSimpleName() + "View");
-            view = (StructureView) struct.getConstructor(Dot[].class).newInstance((Object) structure.getDotMassive());
+            view = (StructureView) struct.getConstructor(Dot[].class).newInstance((Object) structure.getDots());
         } catch (Exception e) {
             e.printStackTrace();
         }

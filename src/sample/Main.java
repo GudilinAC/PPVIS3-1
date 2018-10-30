@@ -17,3 +17,7 @@ public class Main extends Application {
         launch(args);
     }
 }
+
+
+//TODO choosing and deleiting element
+//TODO поправить ArrayList-ы на List-ы

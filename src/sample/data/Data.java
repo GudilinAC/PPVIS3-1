@@ -10,17 +10,17 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-public class Context {
+public class Data {
     private Plan plan = new Plan();
     private List<Collection<Dot>> bindingDots = new ArrayList<>();
 
-    private static Context ourInstance = new Context();
+    private static Data ourInstance = new Data();
 
-    public static Context getInstance() {
+    public static Data getInstance() {
         return ourInstance;
     }
 
-    private Context() {
+    private Data() {
         bindingDots.add(new HashSet<>());
     }
 

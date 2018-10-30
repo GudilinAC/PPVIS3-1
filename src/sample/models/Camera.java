@@ -4,7 +4,7 @@ public class Camera implements Structure {
     private Dot dot = new Dot();
 
     @Override
-    public Dot[] getDotMassive() {
+    public Dot[] getDots() {
         return new Dot[]{dot};
     }
 

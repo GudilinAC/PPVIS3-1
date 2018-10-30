@@ -1,6 +1,6 @@
 package sample.controllers;
 
-import sample.data.Context;
+import sample.data.Data;
 import sample.models.Dot;
 import sample.models.Tools;
 import sample.views.FloorView;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FloorController {
-    private Context context = Context.getInstance();
+    private Data context = Data.getInstance();
     private int indexFloor = 0;
     private Tools tool = null;
     private boolean binding = false;
@@ -87,7 +87,6 @@ public class FloorController {
 
     public void setBinding(boolean binding) {
         this.binding = binding;
-        //TODO binding logic
     }
 
     public boolean getBinding() {

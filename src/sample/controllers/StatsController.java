@@ -1,6 +1,6 @@
 package sample.controllers;
 
-import sample.data.Context;
+import sample.data.Data;
 import sample.models.Floor;
 import sample.views.CameraView;
 import sample.views.StatsView;
@@ -8,12 +8,11 @@ import sample.views.StructureView;
 import sample.views.WallView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class StatsController {
-    private Context context = Context.getInstance();
+    private Data context = Data.getInstance();
 
     private static StatsController ourInstance = new StatsController();
 
@@ -37,14 +36,20 @@ public class StatsController {
 
     public void setFloor(int floorNumber) {
         StatsView.getInstance().update(floorNumber);
+        updateStats();
     }
 
     public void changeFloor(int floor) {
         FloorController.getInstance().setFloor(floor);
+        updateStats();
     }
 
-    public void renameFloor(String newName, int selectedFloor) {
-        context.getFloor(selectedFloor).setName(newName);
+    public void renameFloor(String oldName, String newName) {
+        for (Floor floor: context.getFloors()){
+            if (floor.getName().equals(oldName)){
+                floor.setName(newName);
+            }
+        }
     }
 
     public void removeFloor(int floorNumber) {
@@ -53,9 +58,8 @@ public class StatsController {
 
     public Map<Class<? extends StructureView>, Integer> getStatistics() {
         Map<Class<? extends StructureView>, Integer> stats = new HashMap<>();
-        stats.put(CameraView.class, 0);
         stats.put(WallView.class, 0);
-
+        stats.put(CameraView.class, 0);
 
         context.getFloor(FloorController.getInstance().getCurrentFloor()).getStructures().forEach(s -> {
             switch (s.getClass().getSimpleName()) {
@@ -71,17 +75,6 @@ public class StatsController {
     }
 
     public void updateStats() {
-        ArrayList<Integer> list = new ArrayList<>(Arrays.asList(0, 0));
-        context.getFloor(FloorController.getInstance().getCurrentFloor()).getStructures().forEach(s -> {
-            switch (s.getClass().getSimpleName()) {
-                case "Wall":
-                    list.set(0, list.get(0) + 1);
-                    break;
-                case "Camera":
-                    list.set(1, list.get(1) + 1);
-                    break;
-            }
-            StatsView.getInstance().setStats(list);
-        });
+            StatsView.getInstance().setStats(getStatistics());
     }
 }

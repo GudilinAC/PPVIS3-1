@@ -1,17 +1,14 @@
 package sample.views;
 
-import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import sample.controllers.StatsController;
 import sample.controllers.StructureController;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 public class StatsView {
@@ -68,15 +65,12 @@ public class StatsView {
         floors.setEditable(true);
         floors.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
-                Platform.runLater(() -> controller.changeFloor(floors.getSelectionModel().getSelectedIndex()));
-            }
-        });
-        floors.setOnKeyPressed(event -> {
-            if (event.getCode().equals(KeyCode.ENTER)) {
-                controller.renameFloor(
-                        floors.getEditor().getText(),
-                        floors.getSelectionModel().getSelectedIndex()
-                );
+                if (floors.getSelectionModel().getSelectedIndex() != -1) {
+                    controller.changeFloor(floors.getSelectionModel().getSelectedIndex());
+                } else {
+                    controller.renameFloor(oldVal, newVal);
+                    floors.getItems().set(floors.getItems().indexOf(oldVal), newVal);
+                }
             }
         });
 
@@ -103,9 +97,14 @@ public class StatsView {
         floors.getSelectionModel().select(floorNumber);
     }
 
-    public void setStats(ArrayList<Integer> stats) {
-        for (int i = 0; i < stats.size(); i++){
-           ((Label)((HBox)vBox.getChildren().get(i+1)).getChildren().get(1)).setText(stats.get(i).toString());
+    public void setStats(Map<Class<? extends StructureView>, Integer> map) {
+        for (Node node: vBox.getChildren()){
+            if (node instanceof HBox){
+                Node classy = ((HBox) node).getChildren().get(0);
+                if (classy instanceof StructureView) {
+                    ((Label)((HBox) node).getChildren().get(1)).setText(map.get(classy.getClass()).toString());
+                }
+            }
         }
     }
 }

@@ -5,7 +5,7 @@ public class Wall implements Structure {
     private Dot endDot = new Dot();
 
     @Override
-    public Dot[] getDotMassive() {
+    public Dot[] getDots() {
         return new Dot[]{beginDot, endDot};
     }
 
