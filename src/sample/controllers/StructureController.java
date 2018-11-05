@@ -36,7 +36,7 @@ public class StructureController {
         Structure structure = null;
         try {
             Class<?> struct = Class.forName("sample.models." + view.getClass().getSimpleName().replaceFirst("View", ""));
-            structure = (Structure) struct.getConstructor(Dot[].class).newInstance((Object) view.getDotMassive());
+            structure = (Structure) struct.getConstructor(Dot[].class).newInstance((Object) view.getDots());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -89,5 +89,10 @@ public class StructureController {
             e.printStackTrace();
         }
         return view;
+    }
+
+    public Structure findStructure(StructureView view, int floor) {
+        //TODO
+        return null;
     }
 }

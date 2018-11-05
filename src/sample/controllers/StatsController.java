@@ -7,8 +7,8 @@ import sample.views.StatsView;
 import sample.views.StructureView;
 import sample.views.WallView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class StatsController {
@@ -23,7 +23,7 @@ public class StatsController {
     private StatsController() {
     }
 
-    public ArrayList<String> getFloorNames() {
+    public List<String> getFloorNames() {
         return context.getFloorNames();
     }
 

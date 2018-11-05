@@ -1,7 +1,6 @@
 package sample.views;
 
 import javafx.scene.Node;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import sample.controllers.StructureController;
 import sample.data.Constants;
@@ -10,10 +9,10 @@ import sample.models.Dot;
 public class CameraView implements StructureView {
     private StructureController controller = StructureController.getInstance();
     private ImageView imageView = new ImageView();
+    private boolean select = false;
 
     private void setImage(){
-        Image image = new Image("file:resources/camera.png");
-        imageView.setImage(image);
+        imageView.setImage(Constants.BLACK_CAMERA);
         imageView.setFitHeight(25);
         imageView.setFitWidth(25);
     }
@@ -41,7 +40,7 @@ public class CameraView implements StructureView {
     }
 
     @Override
-    public Dot[] getDotMassive() {
+    public Dot[] getDots() {
         return new Dot[]{new Dot(imageView.getX(), imageView.getY())};
     }
 
@@ -57,5 +56,22 @@ public class CameraView implements StructureView {
     @Override
     public void demo() {
 
+    }
+
+    @Override
+    public void select() {
+        select = true;
+        imageView.setImage(Constants.GREEN_CAMERA);
+    }
+
+    @Override
+    public void unselect() {
+        select = false;
+        imageView.setImage(Constants.BLACK_CAMERA);
+    }
+
+    @Override
+    public boolean isSelected() {
+        return select;
     }
 }

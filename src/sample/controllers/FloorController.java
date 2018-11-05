@@ -2,6 +2,7 @@ package sample.controllers;
 
 import sample.data.Data;
 import sample.models.Dot;
+import sample.models.Structure;
 import sample.models.Tools;
 import sample.views.FloorView;
 import sample.views.StructureView;
@@ -103,5 +104,14 @@ public class FloorController {
         if (indexFloor == floorNumber) {indexFloor = 0;}
         else if (indexFloor > floorNumber) {indexFloor--;}
         PlanController.getInstance().update(null);
+    }
+
+    public void delete(StructureView view) {
+        Structure structure = StructureController.getInstance().findStructure(view, indexFloor);
+        if (structure != null){
+            context.getFloor(indexFloor).getStructures().remove(structure);
+            context.saveChanges();
+            PlanController.getInstance().update(null);
+        }
     }
 }

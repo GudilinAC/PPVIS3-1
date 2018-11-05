@@ -1,6 +1,7 @@
 package sample.views;
 
 import javafx.scene.Node;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import sample.controllers.StructureController;
 import sample.data.Constants;
@@ -10,6 +11,7 @@ public class WallView implements StructureView {
     private StructureController controller = StructureController.getInstance();
     private Line line = new Line();
     private boolean anchorSetted = false;
+    private boolean select = false;
 
     public WallView(Dot begin, Dot end) {
         setBegin(begin);
@@ -54,7 +56,7 @@ public class WallView implements StructureView {
     }
 
     @Override
-    public Dot[] getDotMassive() {
+    public Dot[] getDots() {
         return new Dot[]{new Dot(line.getStartX(), line.getStartY()), new Dot(line.getEndX(), line.getEndY())};
     }
 
@@ -76,5 +78,22 @@ public class WallView implements StructureView {
     public void demo() {
         setBegin(new Dot(0,25));
         setEnd(new Dot(30,0));
+    }
+
+    @Override
+    public void select() {
+        select = true;
+        line.setStroke(Color.GREEN);
+    }
+
+    @Override
+    public void unselect() {
+        select = false;
+        line.setStroke(Color.BLACK);
+    }
+
+    @Override
+    public boolean isSelected() {
+        return select;
     }
 }

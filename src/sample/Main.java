@@ -20,4 +20,3 @@ public class Main extends Application {
 
 
 //TODO choosing and deleiting element
-//TODO поправить ArrayList-ы на List-ы

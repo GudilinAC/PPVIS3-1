@@ -6,7 +6,11 @@ import sample.models.Dot;
 public interface StructureView {
     void followMouse(Dot dot);
     boolean setAnchor(Dot dot);
-    Dot[] getDotMassive();
+    Dot[] getDots();
     Node getLayout();
     void demo();
+
+    void select();
+    void unselect();
+    boolean isSelected();
 }

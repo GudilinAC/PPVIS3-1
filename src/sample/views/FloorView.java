@@ -1,6 +1,7 @@
 package sample.views;
 
 import javafx.scene.Node;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import sample.controllers.FloorController;
 import sample.data.Constants;
@@ -10,6 +11,7 @@ public class FloorView {
     private FloorController controller = FloorController.getInstance();
     private Pane pane = new Pane();
     private StructureView followingStructure;
+    private StructureView selectedStructure;
     private VioletSquareView square;
 
     private static FloorView ourInstance = new FloorView();
@@ -27,6 +29,12 @@ public class FloorView {
                     controller.mousePress(new Dot(event.getX(), event.getY()));
                 }
         });
+        pane.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.DELETE)){
+                controller.delete(selectedStructure);
+                selectedStructure = null;
+            }
+        });
         pane.setMinSize(696, 536);
     }
 
@@ -37,22 +45,44 @@ public class FloorView {
     public void redraw() {
         pane.getChildren().clear();
         pane.getChildren().add(square.getLayout());
-        controller.getStructureViewsList().forEach(s -> pane.getChildren().add(s.getLayout()));
+        controller.getStructureViewsList().forEach(s -> {
+            setEvents(s);
+            pane.getChildren().add(s.getLayout());
+        });
+    }
+
+    private void setEvents(StructureView view) {
+        view.getLayout().setOnMousePressed(event -> {
+            if(controller.getTool() == null && event.isPrimaryButtonDown()) {
+                this.unselectAll();
+                view.select();
+                selectedStructure = view;
+            }
+        });
     }
 
     public void cancelTool(boolean success) {
         if (followingStructure != null) {
             pane.setOnMouseMoved(null);
             if (success){
-                //TODO Ivent adding
+                setEvents(followingStructure);
             } else { pane.getChildren().remove(followingStructure.getLayout()); }
             followingStructure = null;
         }
         square.move(Constants.OUT_DOT);
     }
 
+    private void unselectAll(){
+        if (selectedStructure != null){
+            selectedStructure.unselect();
+            selectedStructure = null;
+        }
+
+    }
+
     public void setFollowingStructure(StructureView followingStructure) {
         this.followingStructure = followingStructure;
+        unselectAll();
         pane.getChildren().add(followingStructure.getLayout());
         pane.setOnMouseMoved(event -> {
             Dot eventDot = new Dot(event.getX(), event.getY());

@@ -78,8 +78,10 @@ public class StatsView {
         for (Map.Entry<Class<? extends StructureView>, Integer> entry : stats.entrySet()) {
             Label label =  new Label(entry.getValue().toString());
             HBox.setMargin(label, new Insets(0,0,0,20));
+            label.setUserData(entry.getKey());
             HBox hBox = new HBox(
                     StructureController.getInstance().getDemoView(entry.getKey()).getLayout(),
+
                     label);
             vBox.getChildren().add(hBox);
         }
@@ -100,9 +102,13 @@ public class StatsView {
     public void setStats(Map<Class<? extends StructureView>, Integer> map) {
         for (Node node: vBox.getChildren()){
             if (node instanceof HBox){
-                Node classy = ((HBox) node).getChildren().get(0);
-                if (classy instanceof StructureView) {
-                    ((Label)((HBox) node).getChildren().get(1)).setText(map.get(classy.getClass()).toString());
+                if (((HBox) node).getChildren().size() > 1){
+                    Node label = ((HBox) node).getChildren().get(1);
+                    if (label instanceof Label) {
+                        if (label.getUserData() instanceof Class){
+                            ((Label) label).setText(map.get(label.getUserData()).toString());
+                        }
+                    }
                 }
             }
         }
