@@ -1,11 +1,24 @@
 package sample.models;
 
+import sample.data.Constants;
+
 public class Camera implements Structure {
     private Dot dot = new Dot();
+    private int id = Constants.INIT_ID;
 
     @Override
     public Dot[] getDots() {
         return new Dot[]{dot};
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public int getId() {
+        return id;
     }
 
     public Camera(Dot... vars) {

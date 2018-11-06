@@ -1,12 +1,25 @@
 package sample.models;
 
+import sample.data.Constants;
+
 public class Wall implements Structure {
     private Dot beginDot = new Dot();
     private Dot endDot = new Dot();
+    private int id = Constants.INIT_ID;
 
     @Override
     public Dot[] getDots() {
         return new Dot[]{beginDot, endDot};
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public int getId() {
+        return id;
     }
 
     public Wall(Dot... vars) {

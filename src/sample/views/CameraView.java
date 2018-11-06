@@ -2,14 +2,23 @@ package sample.views;
 
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
-import sample.controllers.StructureController;
 import sample.data.Constants;
 import sample.models.Dot;
 
 public class CameraView implements StructureView {
-    private StructureController controller = StructureController.getInstance();
     private ImageView imageView = new ImageView();
     private boolean select = false;
+    private int id = Constants.INIT_ID;
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
 
     private void setImage(){
         imageView.setImage(Constants.BLACK_CAMERA);

@@ -29,8 +29,8 @@ public class FloorView {
                     controller.mousePress(new Dot(event.getX(), event.getY()));
                 }
         });
-        pane.setOnKeyPressed(event -> {
-            if (event.getCode().equals(KeyCode.DELETE)){
+        MainView.getInstance().getScene().setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.DELETE) && selectedStructure != null){
                 controller.delete(selectedStructure);
                 selectedStructure = null;
             }

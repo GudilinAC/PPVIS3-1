@@ -32,8 +32,10 @@ public class FloorController {
         Dot anotherDot = findDot(dot);
         if (anotherDot == null) { anotherDot = dot; }
         if (followingStructure.setAnchor(anotherDot)) {
-            context.getFloors().get(indexFloor).getStructures().add(StructureController.getInstance().createStructure(followingStructure));
+            Structure struct = StructureController.getInstance().createStructure(followingStructure);
+            context.getFloors().get(indexFloor).getStructures().add(struct);
             context.saveChanges();
+            followingStructure.setId(struct.getId());
             StatsController.getInstance().updateStats();
             cancelTool(true);
         }

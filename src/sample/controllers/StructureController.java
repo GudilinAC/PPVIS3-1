@@ -92,7 +92,6 @@ public class StructureController {
     }
 
     public Structure findStructure(StructureView view, int floor) {
-        //TODO
-        return null;
+       return context.find(view.getId(), floor);
     }
 }

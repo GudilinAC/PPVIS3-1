@@ -64,7 +64,7 @@ public class StatsView {
         floors.getSelectionModel().selectFirst();
         floors.setEditable(true);
         floors.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal != null) {
+            if (newVal != null && !newVal.equals("")) {
                 if (floors.getSelectionModel().getSelectedIndex() != -1) {
                     controller.changeFloor(floors.getSelectionModel().getSelectedIndex());
                 } else {
@@ -81,7 +81,6 @@ public class StatsView {
             label.setUserData(entry.getKey());
             HBox hBox = new HBox(
                     StructureController.getInstance().getDemoView(entry.getKey()).getLayout(),
-
                     label);
             vBox.getChildren().add(hBox);
         }

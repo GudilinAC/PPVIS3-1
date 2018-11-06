@@ -10,6 +10,7 @@ import sample.controllers.MainController;
 public class MainView {
     private MainController controller = MainController.getInstance();
     private Stage primaryStage;
+    private Scene scene;
 
     private static MainView ourInstance = new MainView();
 
@@ -26,7 +27,7 @@ public class MainView {
 
     public void start() {
         BorderPane mainBorderPane = new BorderPane();
-        Scene scene = new Scene(mainBorderPane, 1000, 700);
+        scene = new Scene(mainBorderPane, 1000, 700);
 
         VBox vBox = new VBox(MenuView.getInstance().getLayout(), ToolsView.getInstance().getLayout());
         mainBorderPane.setTop(vBox);
@@ -40,5 +41,9 @@ public class MainView {
         primaryStage.setTitle("Police Office");
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    public Scene getScene() {
+        return scene;
     }
 }

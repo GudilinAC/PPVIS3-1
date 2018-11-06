@@ -13,4 +13,7 @@ public interface StructureView {
     void select();
     void unselect();
     boolean isSelected();
+
+    void setId(int id);
+    int getId();
 }

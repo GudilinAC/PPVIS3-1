@@ -3,15 +3,24 @@ package sample.views;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import sample.controllers.StructureController;
 import sample.data.Constants;
 import sample.models.Dot;
 
 public class WallView implements StructureView {
-    private StructureController controller = StructureController.getInstance();
     private Line line = new Line();
     private boolean anchorSetted = false;
     private boolean select = false;
+    private int id = Constants.INIT_ID;
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
 
     public WallView(Dot begin, Dot end) {
         setBegin(begin);
